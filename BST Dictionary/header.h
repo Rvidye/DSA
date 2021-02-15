@@ -22,13 +22,14 @@ class Dictionary
 {
     public:
     Node* root;
+    int counter;
     Dictionary();
     Dictionary(Node* root);
     void AddNode(string word,string meaning);
     void InOrder(Node* root);
     void Dictionary::PreOrder(Node* root);
     void ReverseInOrder(Node* root);
-    static Node* SearchWord(Node* root,string word);
+    Node* SearchWord(Node* root,string word);
     Node* MinimumValueNode(Node* root);
     Node* DeleteNode(Node* root,string word);
     void UpdateNode(Node* root,string searchWord,string newSword,string meaning);
@@ -61,10 +62,14 @@ void Node:: printWordAndMeaning()
 
 // START OF Dictionary Class Function Defination
 Dictionary::Dictionary()
-{ this->root = NULL;}
+{ this->root = NULL;
+    this->counter = 0;
+}
 
 Dictionary::Dictionary(Node* root)
-{ this->root = new Node(root);}
+{ this->root = new Node(root);
+    this->counter = 0;
+}
 
 // Function to Add New Node to Binary Tree
 void Dictionary::AddNode(string word,string meaning)
@@ -143,6 +148,8 @@ void Dictionary::ReverseInOrder(Node* root)
 // Searching Word In Dictionary Simple Taversal Algorithm
 Node* Dictionary::SearchWord(Node* root,string word)
 {
+    this->counter++;
+
     if(root == NULL || root->word == word)
         return root;
 

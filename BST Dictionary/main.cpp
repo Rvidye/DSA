@@ -116,6 +116,8 @@ int main()
                 newWord = days.SearchWord(days.root,word);
                 cout<<endl<<endl<<"\t Word : Meaning"<<endl;
                 newWord->printWordAndMeaning();
+                cout<<"Counter : "<<days.counter<<endl;
+                days.counter = 0;
             break;
             case 0:
                 exit(0);
