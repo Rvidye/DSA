@@ -9,9 +9,11 @@ using namespace std;
 //Class Node For Stoaring Word,Meaning left anf Right Pointers of BST
 class Node
 {
-    public:
+    private:
     string word,meaning;
     Node *left,*right;
+    public:
+    friend class Dictionary;
     Node(string word,string meaning);
     Node(Node* other);
     void printWordAndMeaning();
@@ -23,6 +25,7 @@ class Dictionary
     public:
     Node* root;
     int counter;
+    
     Dictionary();
     Dictionary(Node* root);
     void AddNode(string word,string meaning);

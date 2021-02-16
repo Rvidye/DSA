@@ -12,7 +12,7 @@ class Node
     public:
     string word,meaning;
     Node *left,*right;
-    bool isThreaded;
+    bool leftThread,rightThread;
     Node(string word,string meaning);
     Node(Node* other);
     void printWordAndMeaning();
@@ -23,12 +23,17 @@ class Dictionary
 {
     public:
     Node* root;
+    int counter;
     Dictionary();
     Dictionary(Node* root);
-    Node* CreateThreaded(Node* root);
-    Node* leftMost(Node* root);
     void AddNode(string word,string meaning);
     void InOrder(Node* root);
+    void Dictionary::PreOrder(Node* root);
+    void ReverseInOrder(Node* root);
+    Node* SearchWord(Node* root,string word);
+    Node* MinimumValueNode(Node* root);
+    Node* DeleteNode(Node* root,string word);
+    void UpdateNode(Node* root,string searchWord,string newSword,string meaning);
 };
 
 // Node Class Function Defination Start
@@ -39,6 +44,7 @@ Node::Node(string word,string meaning)
     this->word =word;
     this->meaning = meaning;
     left = right = NULL;
+    leftThread = rightThread = false;
 }
 
 Node::Node(Node*other)
@@ -58,10 +64,14 @@ void Node:: printWordAndMeaning()
 
 // START OF Dictionary Class Function Defination
 Dictionary::Dictionary()
-{ this->root = NULL;}
+{ this->root = NULL;
+    this->counter = 0;
+}
 
 Dictionary::Dictionary(Node* root)
-{ this->root = new Node(root);}
+{ this->root = new Node(root);
+    this->counter = 0;
+}
 
 // Function to Add New Node to Binary Tree
 void Dictionary::AddNode(string word,string meaning)
@@ -108,45 +118,99 @@ void Dictionary::AddNode(string word,string meaning)
 // Basically Using this function to print Dictonary in Ascending Order
 void Dictionary::InOrder(Node* root)
 {
-    if(root == NULL)
-        return;
-    Node * move = leftMost(root);
-
-    while(move != NULL)
+    if(root != NULL)
     {
-        move->printWordAndMeaning();
-
-        if(move->isThreaded)
-            move = move->right;
-        else
-            move = leftMost(move->right);
+        InOrder(root->left);
+        root->printWordAndMeaning();
+        InOrder(root->right);
     }
 }
 
-Node* Dictionary::CreateThreaded(Node * root)
+// 
+void Dictionary::PreOrder(Node* root)
 {
-    if(root == NULL)
-        return NULL;
-    if(root->left == NULL && root->right == NULL)
-        return root;
-
-    if(root->left != NULL)
+    if(root != NULL)
     {
-        Node* l = CreateThreaded(root->left);
-        l->left = root;
-        l->isThreaded = true;
+        cout<<root->word<<endl;
+        PreOrder(root->left);
+        PreOrder(root->right);
     }
-
-    if(root->right == NULL)
-        return root;
-
-    return CreateThreaded(root->right);
 }
 
-Node* Dictionary::leftMost(Node* root)
+void Dictionary::ReverseInOrder(Node* root)
 {
-    while (root != NULL && root->left != NULL)
-        root = root->left;
-    
+     if(root != NULL)
+    {
+        ReverseInOrder(root->right);
+        root->printWordAndMeaning();
+        ReverseInOrder(root->left);
+    }
+}
+
+// Searching Word In Dictionary Simple Taversal Algorithm
+Node* Dictionary::SearchWord(Node* root,string word)
+{
+    this->counter++;
+
+    if(root == NULL || root->word == word)
+        return root;
+
+    if(root->word < word)
+        return SearchWord(root->right,word);
+
+    return SearchWord(root->left,word);
+}
+
+// Used inside DeletNode function to find smalled valued node from right side of tree
+Node* Dictionary::MinimumValueNode(Node *root)
+{
+    Node* move = root;
+     while(move && move->left != NULL)
+        move = move->left;
+
+    return move;
+}
+
+// Finds Smalled note on right side of tree that can be used to replace node that is suppsed to be delated
+Node* Dictionary::DeleteNode(Node* root,string word)
+{
+    if(root == NULL)
+        return root;
+
+    if(word < root->word)
+        root->left = DeleteNode(root->left,word);
+
+    else if(word > root->word)
+        root->right = DeleteNode(root->right,word);
+
+    else
+    {
+        if(root->left == NULL)
+        {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        }
+        else if(root->right == NULL)
+        {
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+
+        Node* temp = MinimumValueNode(root->right);
+        root->word = temp->word;
+        root->meaning = temp->meaning;
+        root->right = DeleteNode(root->right,temp->word);
+    }
     return root;
 }
+
+// Search Node from bst and update it's data.
+void Dictionary::UpdateNode(Node* root,string searchWord,string newWord,string meaning)
+{
+    Node* UpdateNode = SearchWord(root,searchWord);
+    UpdateNode->word = newWord;
+    UpdateNode->meaning = meaning;
+}
+// END Of Dictionary Class Member Functions
