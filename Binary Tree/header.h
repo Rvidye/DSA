@@ -10,9 +10,10 @@ using namespace std;
 
 class Node
 {
-public:
+private:
 	int data;
 	Node* left, * right;
+public:
 	Node(int ele)
 	{
 		this->data = ele;
@@ -25,32 +26,35 @@ public:
 		this->left = other->left;
 		this->right = other->right;
 	}
+	friend class BST;
 };
 
 class BST
 {
-public:
+private:
 	Node* root;
+public:
 	BST();
 	BST(Node* root);
+	Node* GetRoot();
 	Node* AddNode(int ele);
 	int GetNonLeafCount(Node* root);
-	unsigned int GetNonLeafCountIterative(Node* root);
+	unsigned int GetNonLeafCountIterative();
 	unsigned int GetLeafCount(Node* node);
-	unsigned int GetLeafCountIterative(Node* node);
+	unsigned int GetLeafCountIterative();
 	void SwapTreeNodes(Node* node);
-	void SwapTreeNodesIterative(Node* root);
+	void SwapTreeNodesIterative();
 	int TreeHeight(Node* node);
-	int TreeHeightIterative(Node* root);
+	int TreeHeightIterative();
 	Node* CopyTree(Node* root);
 	void DeleteTree(Node* node);
-	void DeleteTreeIterative(Node* root);
+	void DeleteTreeIterative();
 	void Inorder(Node* root);
 	void Preorder(Node* root);
 	void Postorder(Node* root);
-	void InorderIterative(Node* root);
-	void PreorderIterative(Node* root);
-	void PostorderIterative(Node* root);
+	void InorderIterative();
+	void PreorderIterative();
+	void PostorderIterative();
 	BST& operator = (const BST& other);
 };
 
@@ -58,6 +62,9 @@ BST::BST()
 {
 	root = NULL;
 }
+
+Node* BST::GetRoot()
+{return this->root;}
 
 Node* BST::AddNode(int ele)
 {
@@ -117,7 +124,7 @@ int BST::GetNonLeafCount(Node* root)
 		return 1 + GetNonLeafCount(root->left) + GetNonLeafCount(root->right);
 }
 
-unsigned int BST::GetNonLeafCountIterative(Node* root)
+unsigned int BST::GetNonLeafCountIterative()
 {
 	if (root == NULL || (root->left == NULL &&
 		root->right == NULL))
@@ -151,7 +158,7 @@ unsigned int BST::GetLeafCount(Node* node)
 		return GetLeafCount(node->left) + GetLeafCount(node->right);
 }
 
-unsigned int BST::GetLeafCountIterative(Node* node)
+unsigned int BST::GetLeafCountIterative()
 {
 	if (!node)
 		return 0;
@@ -191,7 +198,7 @@ void BST::SwapTreeNodes(Node* node)
 	}
 }
 
-void BST::SwapTreeNodesIterative(Node* root)
+void BST::SwapTreeNodesIterative()
 {
 	if (root == NULL)
 		return;
@@ -229,7 +236,7 @@ int BST::TreeHeight(Node* node)
 	}
 }
 
-int BST::TreeHeightIterative(Node* root)
+int BST::TreeHeightIterative()
 {
 	if (root == NULL)
 		return 0;
@@ -284,7 +291,7 @@ void BST::DeleteTree(Node* node)
 	delete node;
 }
 
-void BST::DeleteTreeIterative(Node* root)
+void BST::DeleteTreeIterative()
 {
 	// empty tree
 	if (root == NULL) {
@@ -348,7 +355,7 @@ void BST::Postorder(Node* root)
 	}
 }
 
-void BST::InorderIterative(Node* root)
+void BST::InorderIterative()
 {
 	stack<Node*> s;
 	Node* curr = root;
@@ -374,7 +381,7 @@ void BST::InorderIterative(Node* root)
 	}
 }
 
-void BST::PreorderIterative(Node* root)
+void BST::PreorderIterative()
 {
 	if (root == NULL)
 		return;
@@ -394,7 +401,7 @@ void BST::PreorderIterative(Node* root)
 	}
 }
 
-void BST::PostorderIterative(Node* root)
+void BST::PostorderIterative()
 {
 	if (root == NULL)
 		return;
