@@ -71,7 +71,7 @@ int main()
         {
             case 1:
                 cout<<endl<<" WORDS IN DICTIONARY "<<endl;
-                days.PreOrder(days.root);
+                days.PreOrder(days.GetRoot());
             break;
             case 2:
                 cout<<endl<<"Enter New Word and its Meaning to add in Dictionary"<<endl;
@@ -85,7 +85,7 @@ int main()
             case 3:
                 cout<<endl<<"Enter Word To Delete From Dictionary"<<endl;
                 cin>>word;
-                days.DeleteNode(days.root,word);
+                days.DeleteNode(days.GetRoot(),word);
                 cout<<word<<" Deleted From Days Dictionary"<<endl;
             break;
             case 4:
@@ -97,27 +97,27 @@ int main()
                 cin.ignore();
                 getline(cin,meaning);
                 cin >> meaning;
-                days.UpdateNode(days.root,word,strNewWord,meaning);
+                days.UpdateNode(days.GetRoot(),word,strNewWord,meaning);
                 cout<<"Word Updated to Days Dictionary"<<endl;                
             break;
             case 5:
                 cout<<endl<<"Dictionary Words In Ascending order With Their Meaning"<<endl;
                 cout<<endl<<endl<<"\t Word : Meaning"<<endl;
-                days.InOrder(days.root);
+                days.InOrder(days.GetRoot());
             break;
             case 6:
                 cout<<endl<<"Dictionary Words In Descending order With Their Meaning"<<endl;
                 cout<<endl<<endl<<"\t Word : Meaning"<<endl;
-                days.ReverseInOrder(days.root);
+                days.ReverseInOrder(days.GetRoot());
             break;
             case 7:
                 cout<<endl<<"Enter a word to search from dictionary."<<endl;
                 cin>>word;
-                newWord = days.SearchWord(days.root,word);
+                newWord = days.SearchWord(days.GetRoot(),word);
                 cout<<endl<<endl<<"\t Word : Meaning"<<endl;
                 newWord->printWordAndMeaning();
-                cout<<"Counter : "<<days.counter<<endl;
-                days.counter = 0;
+                cout<<"Counter : "<<days.GetCounter()<<endl;
+                days.SetCounter(0);
             break;
             case 0:
                 exit(0);

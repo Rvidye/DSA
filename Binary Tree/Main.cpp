@@ -14,63 +14,65 @@ int main(void)
 		case 1:
 			printf("\n\t Enter Element");
 			scanf("%d", &ele);
-			Tree->root = Tree->AddNode(ele);
+			Tree->AddNode(ele);
 			break;
 		case 2:
 			printf("\n\t ******* Inorder *******\n");
-			Tree->Inorder(Tree->root);
+			Tree->Inorder(Tree->GetRoot());
 			printf("\n\t ******* Preorder ***********\n");
-			Tree->Preorder(Tree->root);
+			Tree->Preorder(Tree->GetRoot());
 			printf("\n\t ******* Postorder ***********\n");
-			Tree->Postorder(Tree->root);
+			Tree->Postorder(Tree->GetRoot());
 			break;
 		case 3:
 			printf("\n\t ******* Inorder Iterative*******\n");
-			Tree->InorderIterative(Tree->root);
+			Tree->InorderIterative();
 			printf("\n\t ******* Preorder Iterative***********\n");
-			Tree->PreorderIterative(Tree->root);
+			Tree->PreorderIterative();
 			printf("\n\t ******* Postorder Iterative***********\n");
-			Tree->PostorderIterative(Tree->root);
+			Tree->PostorderIterative();
 			break;
 		case 4:
 			printf("\n\t Swapped Tree Nodes: \n");
-			Tree->SwapTreeNodes(Tree->root);
-			Tree->Inorder(Tree->root);
+			Tree->SwapTreeNodes(Tree->GetRoot());
+			Tree->Inorder(Tree->GetRoot());
 			break;
 		case 5:
 			printf("\n\t Swapped Tree Nodes Iterative: \n");
-			Tree->SwapTreeNodesIterative(Tree->root);
-			Tree->Inorder(Tree->root);
+			Tree->SwapTreeNodesIterative();
+			Tree->Inorder(Tree->GetRoot());
 			break;
 		case 6:
-			printf("\n\t Height Of Tree : %d ", Tree->TreeHeight(Tree->root));
-			printf("\n\t Height Of Tree Non Recursive : %d ", Tree->TreeHeightIterative(Tree->root));
+			printf("\n\t Height Of Tree : %d ", Tree->TreeHeight(Tree->GetRoot()));
+			printf("\n\t Height Of Tree Non Recursive : %d ", Tree->TreeHeightIterative());
 			break;
 		case 7:
 			printf("\n\n\t Recursive");
-			printf("\n\t Number Of Leaf Nodes Of Tree : %d ", Tree->GetLeafCount(Tree->root));
-			printf("\n\t Number Of Non-Leaf Nodes Of Tree : %d ", Tree->GetNonLeafCount(Tree->root));
+			printf("\n\t Number Of Leaf Nodes Of Tree : %d ", Tree->GetLeafCount(Tree->GetRoot()));
+			printf("\n\t Number Of Non-Leaf Nodes Of Tree : %d ", Tree->GetNonLeafCount(Tree->GetRoot()));
 			printf("\n\n\t Iterative:");
-			printf("\n\t Number Of Leaf Nodes Of Tree : %d ", Tree->GetLeafCountIterative(Tree->root));
-			printf("\n\t Number Of Non-Leaf Nodes Of Tree : %d ", Tree->GetNonLeafCountIterative(Tree->root));
+			printf("\n\t Number Of Leaf Nodes Of Tree : %d ", Tree->GetLeafCountIterative());
+			printf("\n\t Number Of Non-Leaf Nodes Of Tree : %d ", Tree->GetNonLeafCountIterative());
 			break;
 		case 8:
-			Tree->DeleteTree(Tree->root);
+			Tree->DeleteTree(Tree->GetRoot());
+			Tree->SetRoot(NULL);
 			break;
 		case 9:
-			Tree->DeleteTreeIterative(Tree->root);
+			Tree->DeleteTreeIterative();
+			Tree->SetRoot(NULL);
 			break;
 		case 10:
 			printf("\n\n\t Copy Tree Using Recursion");
-			copyRoot = Tree->CopyTree(Tree->root);
-			copiedTree->root = copyRoot;
-			copiedTree->Inorder(copyRoot);
+			copyRoot = Tree->CopyTree(Tree->GetRoot());
+			copiedTree->SetRoot(copyRoot) ;
+			copiedTree->Inorder(copiedTree->GetRoot());
 			copiedTree = NULL;
 			break;
 		case 11:
 			printf("\n\n\t Copy Tree Using = Operator");
 			copiedTree = Tree;
-			copiedTree->Inorder(copiedTree->root);
+			copiedTree->Inorder(copiedTree->GetRoot());
 			copiedTree = NULL;
 			break;
 		}

@@ -37,6 +37,7 @@ public:
 	BST();
 	BST(Node* root);
 	Node* GetRoot();
+	void SetRoot(Node* root);
 	Node* AddNode(int ele);
 	int GetNonLeafCount(Node* root);
 	unsigned int GetNonLeafCountIterative();
@@ -65,6 +66,9 @@ BST::BST()
 
 Node* BST::GetRoot()
 {return this->root;}
+
+void BST::SetRoot(Node* root)
+{this->root = root;}
 
 Node* BST::AddNode(int ele)
 {
@@ -160,12 +164,12 @@ unsigned int BST::GetLeafCount(Node* node)
 
 unsigned int BST::GetLeafCountIterative()
 {
-	if (!node)
+	if (!root)
 		return 0;
 
 	queue<Node*> q;
 	int count = 0; // Initialize count of leaves
-	q.push(node);
+	q.push(root);
 	while (!q.empty())
 	{
 		Node* temp = q.front();

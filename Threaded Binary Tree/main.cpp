@@ -1,131 +1,79 @@
-/*
-A Dictionary stores keywords and its meanings.
-Provide facility for adding new keywords, deleting keywords, updating values of any entry.
-Provide facility to display whole data sorted in ascending/ Descending order.
-Also find how many maximum comparisons may require for finding any keyword.
-Use Binary Search Tree for implementation.
-*/
-
-/*                                       BINARY SEARCH TREE
-                                            INORDER
-                                            MONDAY
-                                            /   \
-                                       FRIDAY  TUESDAY
-                                                    / \
-                                                   /   \
-                                                  /     \
-                                            THURSDAY   WEDNESDAY
-                                             /   \
-                                            /
-                                       SATUREDAY
-                                        /   \
-                                             \
-                                            SUNDAY 
-*/          
-
 #include"header.h"
 
-int main()
+int main(void) 
 {
-    Dictionary days;
-    Node* newWord;
-    string word,meaning;
-    
-    word = "MONDAY";
-    meaning = "1st Day Of Week";
-    days.AddNode(word,meaning);
-    
-    word = "TUESDAY";
-    meaning = "2nd Day Of Week";
-    days.AddNode(word,meaning);
-
-    word = "WEDNESDAY";
-    meaning = "3rd Day Of Week";
-    days.AddNode(word,meaning);
-
-    word = "THURSDAY";
-    meaning = "4th Day Of Week";
-    days.AddNode(word,meaning);
-
-    word = "FRIDAY";
-    meaning = "5th Day Of Week";
-    days.AddNode(word,meaning);
-
-    word = "SATURDAY";
-    meaning = "WeenEnd Start";
-    days.AddNode(word,meaning);
-
-    word = "SUNDAY";
-    meaning = "WEEKEND OVER";
-    days.AddNode(word,meaning);
-
-    string strNewWord;
-    int ch;
-    do
-    {   
-        word = "";
-        meaning = "";
-        cout<<endl<<"\tDictionary of Days"<<endl<<"\t 1 : Display All words"<<endl<<"\t 2 : Add New Word do Dictionary"<<endl<<"\t 3 : Remove A Word From Dictionary"<<endl<<"\t 4 : Update a Existing Word and It's Meaning"<<endl<<"\t 5 : Display Words in Ascending Order"<<endl<<"\t 6 : Display Words in Descending Order"<<endl<<"\t 7 : Search Word In Dictionary"<<endl<<"\t 0 : Exit"<<endl;
-        cin>>ch;
-        switch(ch)
-        {
-            case 1:
-                cout<<endl<<" WORDS IN DICTIONARY "<<endl;
-                days.PreOrder(days.root);
-            break;
-            case 2:
-                cout<<endl<<"Enter New Word and its Meaning to add in Dictionary"<<endl;
-                cin>>word;
-                cout<<"Enter Meaning of Word"<<endl;
-                cin.ignore();
-                getline(cin,meaning);
-                days.AddNode(word,meaning);
-                cout<<"Word Added to Days Dictionary"<<endl;
-            break;
-            case 3:
-                cout<<endl<<"Enter Word To Delete From Dictionary"<<endl;
-                cin>>word;
-                days.DeleteNode(days.root,word);
-                cout<<word<<" Deleted From Days Dictionary"<<endl;
-            break;
-            case 4:
-                cout<<endl<<"Enter Enter Word You want To Update"<<endl;
-                cin>>word;
-                cout<<endl<<"Enter Enter New WORD AND It's Meaning to Update"<<endl;
-                cin>>strNewWord; 
-                cout<<"Enter Meaning of Word"<<endl;
-                cin.ignore();
-                getline(cin,meaning);
-                cin >> meaning;
-                days.UpdateNode(days.root,word,strNewWord,meaning);
-                cout<<"Word Updated to Days Dictionary"<<endl;                
-            break;
-            case 5:
-                cout<<endl<<"Dictionary Words In Ascending order With Their Meaning"<<endl;
-                cout<<endl<<endl<<"\t Word : Meaning"<<endl;
-                days.InOrder(days.root);
-            break;
-            case 6:
-                cout<<endl<<"Dictionary Words In Descending order With Their Meaning"<<endl;
-                cout<<endl<<endl<<"\t Word : Meaning"<<endl;
-                days.ReverseInOrder(days.root);
-            break;
-            case 7:
-                cout<<endl<<"Enter a word to search from dictionary."<<endl;
-                cin>>word;
-                newWord = days.SearchWord(days.root,word);
-                cout<<endl<<endl<<"\t Word : Meaning"<<endl;
-                newWord->printWordAndMeaning();
-                cout<<"Counter : "<<days.counter<<endl;
-                days.counter = 0;
-            break;
-            case 0:
-                exit(0);
-            break;
-            default:
-                cout<<endl<<"Wrong Input";
-            break;
-        }
-    }while(ch != 0);
-    return 0;
+	/*
+	BST* Tree = new BST(), *copiedTree = new BST();
+	Node* root = NULL,*copyRoot = NULL;
+	int ch, ele;
+	do
+	{
+		printf("\n\n\t\t1. Add\n\t\t2. Dipslay\n\t\t3. Display Iterative\n\t\t4. Swap Each Tree Node\n\t\t5. Swap Each Tree Node Iterative\n\t\t6. Height Of Tree\n\t\t7. Print Number Of Leaf and Non Leaf Nodes Recursive and Iterative\n\t\t8. Delete All Nodes\n\t\t9. Delete All Nodes Iterative\n\t\t10.Copy Tree Recursive Function\n\t\t11.Copy Tree using = operator\n\n\t0. Exit\n\n\t Enter Your Choice \n\n\t ");
+		scanf("%d", &ch);
+		switch (ch)
+		{
+		case 1:
+			printf("\n\t Enter Element");
+			scanf("%d", &ele);
+			Tree->root = Tree->AddNode(ele);
+			break;
+		case 2:
+			printf("\n\t ******* Inorder *******\n");
+			Tree->Inorder(Tree->root);
+			printf("\n\t ******* Preorder ***********\n");
+			Tree->Preorder(Tree->root);
+			printf("\n\t ******* Postorder ***********\n");
+			Tree->Postorder(Tree->root);
+			break;
+		case 3:
+			printf("\n\t ******* Inorder Iterative*******\n");
+			Tree->InorderIterative(Tree->root);
+			printf("\n\t ******* Preorder Iterative***********\n");
+			Tree->PreorderIterative(Tree->root);
+			printf("\n\t ******* Postorder Iterative***********\n");
+			Tree->PostorderIterative(Tree->root);
+			break;
+		case 4:
+			printf("\n\t Swapped Tree Nodes: \n");
+			Tree->SwapTreeNodes(Tree->root);
+			Tree->Inorder(Tree->root);
+			break;
+		case 5:
+			printf("\n\t Swapped Tree Nodes Iterative: \n");
+			Tree->SwapTreeNodesIterative(Tree->root);
+			Tree->Inorder(Tree->root);
+			break;
+		case 6:
+			printf("\n\t Height Of Tree : %d ", Tree->TreeHeight(Tree->root));
+			printf("\n\t Height Of Tree Non Recursive : %d ", Tree->TreeHeightIterative(Tree->root));
+			break;
+		case 7:
+			printf("\n\n\t Recursive");
+			printf("\n\t Number Of Leaf Nodes Of Tree : %d ", Tree->GetLeafCount(Tree->root));
+			printf("\n\t Number Of Non-Leaf Nodes Of Tree : %d ", Tree->GetNonLeafCount(Tree->root));
+			printf("\n\n\t Iterative:");
+			printf("\n\t Number Of Leaf Nodes Of Tree : %d ", Tree->GetLeafCountIterative(Tree->root));
+			printf("\n\t Number Of Non-Leaf Nodes Of Tree : %d ", Tree->GetNonLeafCountIterative(Tree->root));
+			break;
+		case 8:
+			Tree->DeleteTree(Tree->root);
+			break;
+		case 9:
+			Tree->DeleteTreeIterative(Tree->root);
+			break;
+		case 10:
+			printf("\n\n\t Copy Tree Using Recursion");
+			copyRoot = Tree->CopyTree(Tree->root);
+			copiedTree->root = copyRoot;
+			copiedTree->Inorder(copyRoot);
+			copiedTree = NULL;
+			break;
+		case 11:
+			printf("\n\n\t Copy Tree Using = Operator");
+			copiedTree = Tree;
+			copiedTree->Inorder(copiedTree->root);
+			copiedTree = NULL;
+			break;
+		}
+	} while (ch != 0);*/
 }

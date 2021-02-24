@@ -22,12 +22,16 @@ class Node
 //Class Dictionary for Stoaring Node class objects and all important function impletation to make a working dictionary
 class Dictionary
 {
-    public:
+    private:
     Node* root;
     int counter;
-    
+    public:
     Dictionary();
     Dictionary(Node* root);
+    Node* GetRoot();
+    int GetCounter();
+    void SetRoot(Node* root);
+    void SetCounter(int count);
     void AddNode(string word,string meaning);
     void InOrder(Node* root);
     void Dictionary::PreOrder(Node* root);
@@ -73,6 +77,18 @@ Dictionary::Dictionary(Node* root)
 { this->root = new Node(root);
     this->counter = 0;
 }
+
+Node* Dictionary::GetRoot()
+{return this->root;}
+
+int Dictionary::GetCounter()
+{return this->counter;}
+
+void Dictionary::SetRoot(Node* root)
+{this->root = root;}
+
+void Dictionary::SetCounter(int count)
+{this->counter = count;}
 
 // Function to Add New Node to Binary Tree
 void Dictionary::AddNode(string word,string meaning)
